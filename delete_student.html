@@ -1,0 +1,99 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        margin-top: 0;
+    }
+
+    .student {
+        margin-bottom: 20px;
+        padding: 10px;
+        background-color: #f9f9f9;
+        border-radius: 5px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .student p {
+        margin: 5px 0;
+    }
+
+    .delete-btn {
+        background-color: #dc3545;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .delete-btn:hover {
+        background-color: #c82333;
+    }
+</style>
+<title>Delete Student</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Delete Student</h2>
+        <div id="students-list"></div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            // Function to fetch and display all student details with delete buttons
+            function viewAllStudentsWithDeleteButtons() {
+                $.get("view_students_deletion.php", function(data, status){
+                    $("#students-list").html(data);
+                });
+            }
+
+            // Trigger fetching and displaying all student details with delete buttons
+            viewAllStudentsWithDeleteButtons();
+
+            // Function to delete a student
+            function deleteStudent(studentId) {
+                $.ajax({
+                    type: "POST",
+                    url: "delete.php",
+                    data: { student_id: studentId },
+                    success: function(response) {
+                        // Refresh the list of students after deletion
+                        viewAllStudentsWithDeleteButtons();
+                    },
+                    error: function() {
+                        alert("Error deleting student.");
+                    }
+                });
+            }
+
+            // Event listener for delete buttons
+            $(document).on('click', '.delete-btn', function() {
+                var studentId = $(this).data('student-id');
+                deleteStudent(studentId);
+            });
+        });
+    </script>
+</body>
+</html>
+
+

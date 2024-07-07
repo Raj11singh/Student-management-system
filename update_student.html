@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 5px;
+            border: 1px solid black;
+            background-color: rgb(69, 142, 178);
+        }
+
+        h2 {
+            margin-top: 0;
+            text-align: center;
+            
+        }
+
+        .student {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            max-width: 800px;
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: rgb(173, 152, 152);
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .student p {
+            margin: 5px 0;
+        }
+
+        input[type="number"],
+        input[type="text"],
+        input[type="email"],
+        button {
+            display: block;
+            margin-bottom: 10px;
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: rgb(232, 6, 252);
+            color: black;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: rgb(19, 225, 236);
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                margin: 50px auto;
+                padding: 30px;
+            }
+
+            .student {
+                padding: 20px;
+            }
+
+            input[type="number"],
+            input[type="text"],
+            input[type="email"],
+            button {
+                width: 50%;
+                display: inline-block;
+                margin-right: 10px;
+            }
+        }
+    </style>
+    <title>Update Student</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Update Student Details</h2>
+        <div id="students-list"></div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            // Function to fetch and display all student details
+            function viewAllStudents() {
+                $.get("view_students_updation.php", function(data, status){
+                    $("#students-list").html(data);
+                });
+            }
+
+            // Trigger fetching and displaying all student details
+            viewAllStudents();
+
+            // Function to update a student
+            function updateStudent(studentId, name, email, subject, marks) {
+                $.ajax({
+                    type: "POST",
+                    url: "update.php",
+                    data: { student_id: studentId, name: name, email: email, subject: subject, marks: marks },
+                    success: function(response) {
+                        // Redirect to the frontend.html page after successful update
+                        window.location.href = "frontend.html";
+                    },
+                    error: function() {
+                        alert("Error updating student.");
+                    }
+                });
+            }
+
+            // Event listener for update buttons
+            $(document).on('click', '.update-btn', function() {
+                var studentId = $(this).data('student-id');
+                var name = $(this).closest('.student').find('.name-input').val();
+                var email = $(this).closest('.student').find('.email-input').val();
+                var subject = $(this).closest('.student').find('.subject-input').val();
+                var marks = $(this).closest('.student').find('.marks-input').val();
+                updateStudent(studentId, name, email, subject, marks);
+            });
+        });
+    </script>
+</body>
+</html>

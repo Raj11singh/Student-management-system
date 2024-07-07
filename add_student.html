@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        max-width: 400px;
+        margin: 20px auto;
+        padding: 20px;
+        border: 1px solid black;
+        border-radius: 5px;
+    }
+
+    h2 {
+        margin-top: 0;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="number"],
+    button {
+        display: block;
+        margin-bottom: 10px;
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+    }
+
+    button {
+        background-color: rgb(160, 164, 170);
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: blue;
+    }
+
+</style>
+<title>Add Student</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Add Student</h2>
+        <form action="create.php" method="post">
+            <input type="text" name="name" placeholder="Name" required><br>
+            <input type="email" name="email" placeholder="Email" required><br>
+            <input type="text" name="subject" placeholder="Subject" required><br>
+            <input type="number" name="marks" placeholder="Marks" required><br>
+            <button type="submit">Add Student</button>
+        </form>
+    </div>
+</body>
+</html>

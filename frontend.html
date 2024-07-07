@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0c81f6;
+            margin: 0;
+            padding: 0;
+        }
+    
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #aea6a6;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); 
+            text-align: center;
+        }
+    
+        h2 {
+            margin-bottom: 20px;
+            color: #e41b1b;
+        }
+    
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px;
+            background-color: #ff6f61; 
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
+        }
+    
+        .btn:hover {
+            background-color: #ff4e43;
+        }
+    
+    
+        .btn-secondary {
+            background-color: #5e9cff;
+        }
+    
+        .btn-secondary:hover {
+            background-color: #3b7bff; 
+        }
+    </style>
+    
+<body>
+    <div class="container">
+        <h2>Student Management System</h2>
+        
+        <a href="add_student.html" class="btn">Add Student</a>
+
+        <a href="view_students.html" class="btn">View Students</a>
+
+        <a href="update_student.html" class="btn">Update Student</a>
+
+        <a href="delete_student.html" class="btn">Delete Student</a>
+
+        <div id="students-list"></div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+
+        $(document).ready(function(){
+            
+            function viewAllStudentsDetails() {
+                $.get("view_students.php", function(data, status){
+                    $("#students-list").html(data);
+                });
+            }
+
+            
+            $("#viewAllStudentsBtn").click(function() {
+                viewAllStudentsDetails();
+            });
+        });
+    </script>
+</body>
+</html>
